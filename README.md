@@ -20,8 +20,8 @@ Clone the repository:
 
 bash
 Copy code
-git clone https://github.com/gebrie-dev/music-library-app.git
-Navigate to the project directory:
+git clone 
+Navigate to the project directory:https://github.com/gebrie-dev/addismusic
 
 bash
 Copy code
