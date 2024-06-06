@@ -51,5 +51,5 @@ Learn More
 For more information about React, check out the React documentation.
 
 Deployed App
-The Music  App is deployed and hosted on Netlify. Click here to access it!https://gabi-portfoio.netlify.app/
+The Music  App is deployed and hosted on Netlify. Click here to access it!https://addismusics.netlify.app/
 
