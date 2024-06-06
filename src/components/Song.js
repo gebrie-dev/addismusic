@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import { add, updateQuantity } from '../store/librarySlice';
-import { getSongs } from '../store/songSlice';
+import { fetchSongsStart } from '../store/songSlice';
 import { FaMusic } from 'react-icons/fa';
 import { LibraryAdd, LibraryAddCheck, Edit } from '@emotion-icons/material-rounded';
-import EditSong from './Edit'; // Import the Edit component
+import EditSong from './Edit';
 import { ExpandMore } from '@emotion-icons/material-rounded';
+
 const Container = styled.div`
   padding: 2.8rem;
   margin-top: 4rem;
@@ -47,14 +48,13 @@ const Card = styled.div`
   flex-direction: column;
   background-color: #06b6d4;
   transition: transform 0.3s;
-  margin-bottom: 20px; /* Added margin-bottom for spacing */
-  
+  margin-bottom: 20px;
+
   &:hover {
     transform: scale(1.05);
     background-color: #a7f3d0;
   }
 `;
-
 
 const CardBody = styled.div`
   padding: 1.5rem;
@@ -110,7 +110,6 @@ const Button = styled.button`
   }
 `;
 
-
 const CardFooter = styled.div`
   padding: 1rem;
   display: flex;
@@ -122,7 +121,7 @@ const CenteredContainer = styled.div`
   display: flex;
   margin-top: 2rem;
   justify-content: center;
-  background-color:#d6d3d1;
+  background-color: #d6d3d1;
 `;
 
 const ShowMoreButton = styled.button`
@@ -167,8 +166,12 @@ const Spinner = styled.div`
   margin: auto;
 
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 `;
 
@@ -181,14 +184,15 @@ const ErrorMessage = styled.div`
 
 const Song = () => {
   const dispatch = useDispatch();
-  const { data: songs, loading, error } = useSelector((state) => state.songs);
+ 
+const { data: songs, loading, error } = useSelector((state) => state.songs);
   const libraryItems = useSelector((state) => state.library);
   const [showAll, setShowAll] = useState(false);
-  const [adding, setAdding] = useState(false); // State to manage adding new songs
-  const [editingSong, setEditingSong] = useState(null); // State to manage editing songs
+  const [adding, setAdding] = useState(false); 
+  const [editingSong, setEditingSong] = useState(null); 
 
   useEffect(() => {
-    dispatch(getSongs());
+    dispatch(fetchSongsStart());
   }, [dispatch]);
 
   const addToLibrary = (song) => {
@@ -210,8 +214,8 @@ const Song = () => {
   const visibleSongs = showAll ? songs : songs.slice(0, 6);
 
   const handleEdit = (song) => {
-    setEditingSong(song); // Set the song to be edited
-    setAdding(true); // Set adding state to true to open the Edit component in edit mode
+    setEditingSong(song); 
+    setAdding(true); 
   };
 
   if (loading) {
@@ -240,7 +244,6 @@ const Song = () => {
               <CardTitle>{song.title}</CardTitle>
               <MusicIcon />
               <CardText>{song.artist}</CardText>
-
             </CardBody>
             <CardFooter>
               <Button
@@ -252,12 +255,12 @@ const Song = () => {
                 <span>{isInLibrary(song) ? 'In Library' : 'Add To Library'}</span>
               </Button>
               <Button
-                variant="" // For the "Edit" button
+                variant=""
                 onClick={() => handleEdit(song)}
-                title="Edit Song" // Add title attribute
+                title="Edit Song"
               >
                 <Edit size={20} />
-                <span>Edit Song</span> {/* Display "Edit Song" text */}
+                <span>Edit Song</span>
               </Button>
             </CardFooter>
           </Card>
@@ -277,7 +280,7 @@ const Song = () => {
         <EditSong
           onAdd={() => setAdding(false)}
           onUpdate={() => { setAdding(false); setEditingSong(null); }}
-          initialSongData={editingSong} // Pass the song data to be edited if editing
+          initialSongData={editingSong}
         />
       )}
     </Container>

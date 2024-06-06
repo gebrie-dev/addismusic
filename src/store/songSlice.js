@@ -39,25 +39,8 @@ export const {
     fetchSongsStart, 
     fetchSongsSuccess, 
     fetchSongsFailure, 
-    addSong, // New action creator for adding a song
-    editSong, // New action creator for editing a song
+    addSong, 
+    editSong 
 } = songSlice.actions;
 
 export default songSlice.reducer;
-
-export function getSongs() {
-    return async function getSongsThunk(dispatch) {
-        dispatch(fetchSongsStart());
-        try {
-            const response = await fetch('https://jsonplaceholder.typicode.com/albums'); // Updated API endpoint
-            if (!response.ok) {
-                throw new Error('Failed to fetch songs');
-            }
-            const data = await response.json();
-            dispatch(fetchSongsSuccess(data));
-        } catch (error) {
-            console.error('Error fetching songs:', error);
-            dispatch(fetchSongsFailure(error.message));
-        }
-    };
-}

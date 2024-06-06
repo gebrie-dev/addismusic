@@ -1,0 +1,25 @@
+{
+    "songs": [
+        { "title": "Blinding Lights", "artist": "The Weeknd" },
+        { "title": "Smells Like Teen Spirit", "artist": "Nirvana" },
+        { "title": "Aschilosh", "artist": "Dawit tsige" },
+        { "title": "Amen", "artist": "Nway debebe" },
+        { "title": "gash me", "artist": "Led Zeppelin" },
+        { "title": "Billie Jean", "artist": "Michael Jackson" },
+        { "title": "Hey Jude", "artist": "The Beatles" },
+        { "title": "Hotel California", "artist": "Eagles" },
+        { "title": "Rolling in the Deep", "artist": "Adele" },
+        { "title": "Like a Rolling Stone", "artist": "Bob Dylan" },
+        { "title": "Imagine", "artist": "John Lennon" },
+        { "title": "Wonderwall", "artist": "Oasis" },
+        { "title": "Uptown Funk", "artist": "Mark Ronson ft. Bruno Mars" },
+        { "title": "Sweet Child o' Mine", "artist": "Guns N' Roses" },
+        { "title": "Hallelujah", "artist": "Leonard Cohen" },
+        { "title": "Thriller", "artist": "Michael Jackson" },
+        { "title": "Wish You Were Here", "artist": "Pink Floyd" },
+        { "title": "Dancing Queen", "artist": "ABBA" },
+        { "title": "Piano Man", "artist": "Billy Joel" },
+        { "title": "Let It Be", "artist": "The Beatles" }
+    ]
+  }
+  
