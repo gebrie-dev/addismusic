@@ -2,11 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import { add, updateQuantity } from '../store/librarySlice';
-import { fetchSongsStart } from '../store/songSlice';
+import {
+  fetchSongsStart,
+  deleteSongStart,
+} from '../store/songSlice';
 import { FaMusic } from 'react-icons/fa';
-import { LibraryAdd, LibraryAddCheck, Edit } from '@emotion-icons/material-rounded';
-import EditSong from './Edit';
-import { ExpandMore } from '@emotion-icons/material-rounded';
+import {
+  LibraryAdd,
+  LibraryAddCheck,
+  Edit,
+  Delete,
+  ExpandMore,
+} from '@emotion-icons/material-rounded';
+import SongForm from './songForm';
+
 
 const Container = styled.div`
   padding: 2.8rem;
@@ -30,13 +39,27 @@ const Title = styled.h1`
   }
 `;
 
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom: 1.5rem; /* Add margin bottom for spacing */
+`;
+
+const ButtonContainer = styled.div`
+  margin-left: 2.8rem;
+`;
+
 const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1.5rem;
   width: 100%;
+  margin-top: -1rem; /* Move cards up a little */
 `;
+
 
 const Card = styled.div`
   border: 1px solid #ccc;
@@ -77,7 +100,8 @@ const CardText = styled.p`
 
 const Button = styled.button`
   padding: 0.75rem 1rem;
-  background-color: ${(props) => (props.variant === 'primary' ? '#007bff' : '#28a745')};
+  background-color: ${(props) =>
+    props.variant === 'primary' ? '#007bff' : '#28a745'};
   color: #fff;
   border: none;
   border-radius: 2px;
@@ -88,7 +112,8 @@ const Button = styled.button`
   justify-content: center;
 
   &:hover {
-    background-color: ${(props) => (props.variant === 'primary' ? '#0056b3' : '#218838')};
+    background-color: ${(props) =>
+      props.variant === 'primary' ? '#0056b3' : '#218838'};
   }
 
   span {
@@ -184,12 +209,11 @@ const ErrorMessage = styled.div`
 
 const Song = () => {
   const dispatch = useDispatch();
- 
-const { data: songs, loading, error } = useSelector((state) => state.songs);
+  const { data: songs, loading, error } = useSelector((state) => state.songs);
   const libraryItems = useSelector((state) => state.library);
   const [showAll, setShowAll] = useState(false);
-  const [adding, setAdding] = useState(false); 
-  const [editingSong, setEditingSong] = useState(null); 
+  const [editingSong, setEditingSong] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     dispatch(fetchSongsStart());
@@ -214,8 +238,19 @@ const { data: songs, loading, error } = useSelector((state) => state.songs);
   const visibleSongs = showAll ? songs : songs.slice(0, 6);
 
   const handleEdit = (song) => {
-    setEditingSong(song); 
-    setAdding(true); 
+    setEditingSong(song);
+    setShowForm(true);
+  };
+
+  const handleDelete = (id) => {
+    console.log("Deleting song with id:", id);
+    dispatch(deleteSongStart({ id }));
+  };
+  
+
+  const handleAddNew = () => {
+    setEditingSong(null);
+    setShowForm(true);
   };
 
   if (loading) {
@@ -236,7 +271,24 @@ const { data: songs, loading, error } = useSelector((state) => state.songs);
 
   return (
     <Container>
-      <Title>Addis Songs</Title>
+      <Header>
+        <Title>Addis Songs</Title>
+        <ButtonContainer>
+          <Button variant="primary" onClick={handleAddNew}>
+            Create New Song
+          </Button>
+        </ButtonContainer>
+      </Header>
+      {showForm && (
+        <SongForm
+          onAdd={() => setShowForm(false)}
+          onUpdate={() => {
+            setShowForm(false);
+            setEditingSong(null);
+          }}
+          initialSongData={editingSong}
+        />
+      )}
       <CardContainer>
         {visibleSongs.map((song) => (
           <Card key={song.id}>
@@ -251,16 +303,20 @@ const { data: songs, loading, error } = useSelector((state) => state.songs);
                 onClick={() => addToLibrary(song)}
                 disabled={isInLibrary(song)}
               >
-                {isInLibrary(song) ? <LibraryAddCheck size={20} /> : <LibraryAdd size={20} />}
+                {isInLibrary(song) ? (
+                  <LibraryAddCheck size={20} />
+                ) : (
+                  <LibraryAdd size={20} />
+                )}
                 <span>{isInLibrary(song) ? 'In Library' : 'Add To Library'}</span>
               </Button>
-              <Button
-                variant=""
-                onClick={() => handleEdit(song)}
-                title="Edit Song"
-              >
+              <Button variant="" onClick={() => handleEdit(song)} title="Edit Song">
                 <Edit size={20} />
                 <span>Edit Song</span>
+              </Button>
+              <Button variant="success" onClick={() => handleDelete(song.id)} title="Delete Song">
+                <Delete size={20} />
+                <span>Delete</span>
               </Button>
             </CardFooter>
           </Card>
@@ -276,13 +332,7 @@ const { data: songs, loading, error } = useSelector((state) => state.songs);
           </ShowMoreButton>
         )}
       </CenteredContainer>
-      {adding && (
-        <EditSong
-          onAdd={() => setAdding(false)}
-          onUpdate={() => { setAdding(false); setEditingSong(null); }}
-          initialSongData={editingSong}
-        />
-      )}
+    
     </Container>
   );
 };

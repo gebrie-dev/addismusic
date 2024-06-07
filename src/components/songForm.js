@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
-import { editSong, addSong } from '../store/songSlice';
-import { Close } from '@emotion-icons/material-rounded'; // Import the close icon
+import { editSongStart, addSongStart } from '../store/songSlice';
+import { Close } from '@emotion-icons/material-rounded';
 
 const FormSection = styled.section`
   background-color: #d946ef;
@@ -55,7 +55,7 @@ const Input = styled.input`
   padding: 8px;
   border-radius: 3px;
   font-size: 16px;
-  border: 1px solid ${props => props.error ? 'red' : '#ccc'};
+  border: 1px solid ${(props) => (props.error ? 'red' : '#ccc')};
   &:focus {
     border-color: #007bff;
   }
@@ -85,36 +85,33 @@ const ClearButton = styled.button`
   cursor: pointer;
 `;
 
-const Edit = ({ onAdd, onUpdate, initialSongData }) => {
-  const [title, setTitle] = useState('');
-  const [artist, setArtist] = useState('');
+const SongForm = ({ onAdd, onUpdate, initialSongData }) => {
+  const [title, setTitle] = useState(initialSongData ? initialSongData.title : '');
+  const [artist, setArtist] = useState(initialSongData ? initialSongData.artist : '');
   const [error, setError] = useState('');
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (initialSongData) {
-      setTitle(initialSongData.title);
-      setArtist(initialSongData.artist);
-    }
+    setTitle(initialSongData ? initialSongData.title : '');
+    setArtist(initialSongData ? initialSongData.artist : '');
   }, [initialSongData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title.trim() === '') {
-      setError('Title is required.');
+    if (title.trim() === '' || artist.trim() === '') {
+      setError('Both title and artist are required.');
       return;
     }
-    if (artist.trim() === '') {
-      setError('Artist is required.');
-      return;
-    }
+
     if (initialSongData) {
-      dispatch(editSong({ id: initialSongData.id, updatedSong: { title, artist } }));
+      dispatch(editSongStart({ id: initialSongData.id, title, artist }));
       onUpdate();
     } else {
-      dispatch(addSong({ title, artist }));
+      dispatch(addSongStart({ title, artist }));
       onAdd();
     }
+
     setTitle('');
     setArtist('');
     setError('');
@@ -131,25 +128,21 @@ const Edit = ({ onAdd, onUpdate, initialSongData }) => {
       <CloseButton onClick={onUpdate}><CloseIcon /></CloseButton>
       <h2>{initialSongData ? 'Edit Song' : 'Add a New Song'}</h2>
       <Form onSubmit={handleSubmit}>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {error && <p style={{ color: 'red', marginBottom: '10px' }}>{error}</p>}
         <Input
           type="text"
           placeholder="Title"
           value={title}
           onChange={(e) => { setTitle(e.target.value); setError(''); }}
-          error={error.includes('Title')}
           aria-label="Song Title"
         />
-        {error.includes('Title') && <p style={{ color: 'red' }}>{error}</p>}
         <Input
           type="text"
           placeholder="Artist"
           value={artist}
           onChange={(e) => { setArtist(e.target.value); setError(''); }}
-          error={error.includes('Artist')}
           aria-label="Song Artist"
         />
-        {error.includes('Artist') && <p style={{ color: 'red' }}>{error}</p>}
         <Button type="submit">{initialSongData ? 'Update' : 'Add'}</Button>
       </Form>
       <ClearButton onClick={handleClear}>Clear</ClearButton>
@@ -157,4 +150,4 @@ const Edit = ({ onAdd, onUpdate, initialSongData }) => {
   );
 };
 
-export default Edit;
+export default SongForm;
