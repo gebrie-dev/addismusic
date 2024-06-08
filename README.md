@@ -1,5 +1,5 @@
-Music Library App
-Welcome to the Music Library App! Manage your music collection effortlessly with this intuitive web application.
+Music  App
+Welcome to the MusicApp! Manage your music collection effortlessly with this intuitive web application.
 
 Features
 Add Songs: Easily add new songs with title and artist information.
