@@ -30,19 +30,15 @@ const songSlice = createSlice({
       const updatedData = state.data.map(song =>
         song.id === action.payload.id ? action.payload : song
       );
-      state.data = updatedData;
+      state.data = [action.payload, ...updatedData.filter(song => song.id !== action.payload.id)];
       state.loading = false;
-    },
-    editSongFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
     },
     addSongStart: (state) => {
       state.loading = true;
       state.error = null;
     },
     addSongSuccess: (state, action) => {
-      state.data.push(action.payload);
+      state.data = [action.payload, ...state.data];
       state.loading = false;
     },
     addSongFailure: (state, action) => {

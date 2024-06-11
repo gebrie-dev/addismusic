@@ -1,34 +1,50 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
-import { remove } from '../store/librarySlice';
 import { Link, useLocation } from 'react-router-dom';
-import { FaMusic } from 'react-icons/fa'; // Import appropriate icons
+import { FaMusic } from 'react-icons/fa';
 import { LibraryAddCheck } from '@emotion-icons/material-twotone';
 
 const Container = styled.div`
   background-color: #3d3a40;
   padding: 1rem;
-  position: fixed; /* Make the header fixed */
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000; /* Ensure the header is above other content */
+  z-index: 1000;
+
+  /* Add media query for smaller screens */
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem;
+  }
 `;
 
 const Logo = styled.img`
-  height: 50px; /* Adjust the height of the logo */
-  width: 50px; /* Make the logo square */
-  border-radius: 50%; /* Make the logo circular */
-  margin-right: 20px; /* Add some margin to separate the logo from other elements */
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
   cursor: pointer;
+
+  /* Adjust size for smaller screens */
+  @media screen and (max-width: 768px) {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+  }
 `;
 
 const HeaderTitle = styled.h1`
   margin: 0;
-  flex-grow: 1; /* Allow the title to grow and occupy remaining space */
+  flex-grow: 1;
   font-size: 18px;
   color: #9333ea;
+
+  /* Adjust font size for smaller screens */
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const Nav = styled.nav`
@@ -52,6 +68,12 @@ const NavLink = styled(Link)`
     color: #fff;
     text-decoration: none;
   }
+
+  /* Adjust padding for smaller screens */
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+  }
 `;
 
 const Badge = styled.span`
@@ -74,6 +96,11 @@ const Button = styled.button`
   &:hover {
     background-color: #6c5ce7;
   }
+
+  /* Adjust padding for smaller screens */
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem;
+  }
 `;
 
 const MusicIcon = styled(FaMusic)`
@@ -82,12 +109,7 @@ const MusicIcon = styled(FaMusic)`
 
 const NavBar = () => {
   const librarySongs = useSelector(state => state.library);
-  const dispatch = useDispatch();
   const location = useLocation();
-
-  const removeLibraryItem = id => {
-    dispatch(remove(id));
-  };
 
   return (
     <Container>

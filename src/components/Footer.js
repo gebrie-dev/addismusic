@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 // Facebook icon SVG
 const FacebookIcon = () => (
   <svg
@@ -33,8 +32,6 @@ const InstagramIcon = () => (
   </svg>
 );
 
-
-
 const FooterContainer = styled.footer`
   background-color: #333;
   color: #fff;
@@ -44,12 +41,22 @@ const FooterContainer = styled.footer`
   align-items: center;
   bottom: 0;
   width: 100%;
-  position: relative; /* Make the container relative */
+  position: relative;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const FooterContent = styled.div`
   display: flex;
   align-items: center;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 `;
 
 const Logo = styled.img`
@@ -67,6 +74,10 @@ const FooterTitle = styled.h1`
 
 const TechnologiesContainer = styled.div`
   text-align: center;
+
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const TechnologiesTitle = styled.h3`
@@ -108,11 +119,19 @@ const SocialMediaIcon = styled.a`
 const CopyRight = styled.p`
   margin: 0;
   font-size: 16px;
-  position: absolute; /* Position the copyright notice */
-  bottom: 10px; /* Adjust the distance from the bottom */
-  left: 50%; /* Center horizontally */
-  transform: translateX(-50%); /* Move it back by half its width */
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
   color: #dc2626;
+
+  @media (max-width: 768px) {
+    position: static;
+    transform: none;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+  }
 `;
 
 const Footer = () => {
@@ -140,7 +159,6 @@ const Footer = () => {
           <SocialMediaIcon href="#" aria-label="Instagram">
             <InstagramIcon />
           </SocialMediaIcon>
-          
         </SocialMediaIcons>
       </SocialMediaContainer>
       <CopyRight>&copy; 2024 Addis Song. All rights reserved.</CopyRight>

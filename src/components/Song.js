@@ -2,20 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import { add, updateQuantity } from '../store/librarySlice';
-import {
-  fetchSongsStart,
-  deleteSongStart,
-} from '../store/songSlice';
+import { fetchSongsStart, deleteSongStart } from '../store/songSlice';
 import { FaMusic } from 'react-icons/fa';
-import {
-  LibraryAdd,
-  LibraryAddCheck,
-  Edit,
-  Delete,
-  ExpandMore,
-} from '@emotion-icons/material-rounded';
+import { LibraryAdd, LibraryAddCheck, Edit, Delete, ExpandMore } from '@emotion-icons/material-rounded';
 import SongForm from './songForm';
-
 
 const Container = styled.div`
   padding: 2.8rem;
@@ -25,7 +15,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  /* Adjust padding for smaller screens */
+  @media screen and (max-width: 768px) {
+    padding: 1.5rem;
+  }
 `;
+
 
 const Title = styled.h1`
   text-align: center;
@@ -44,7 +40,7 @@ const Header = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 80%;
-  margin-bottom: 1.5rem; /* Add margin bottom for spacing */
+  margin-bottom: 1.5rem;
 `;
 
 const ButtonContainer = styled.div`
@@ -57,9 +53,8 @@ const CardContainer = styled.div`
   justify-content: space-between;
   gap: 1.5rem;
   width: 100%;
-  margin-top: -1rem; /* Move cards up a little */
+  margin-top: -1rem;
 `;
-
 
 const Card = styled.div`
   border: 1px solid #ccc;
@@ -104,7 +99,7 @@ const Button = styled.button`
     props.variant === 'primary' ? '#007bff' : '#28a745'};
   color: #fff;
   border: none;
-  border-radius: 2px;
+  border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   display: flex;
@@ -133,6 +128,16 @@ const Button = styled.button`
     background-color: #6c757d;
     cursor: not-allowed;
   }
+`;
+const RemoveButton = styled.button`
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 `;
 
 const CardFooter = styled.div`
@@ -235,8 +240,6 @@ const Song = () => {
     return libraryItems.some((item) => item.id === song.id);
   };
 
-  const visibleSongs = showAll ? songs : songs.slice(0, 6);
-
   const handleEdit = (song) => {
     setEditingSong(song);
     setShowForm(true);
@@ -246,12 +249,13 @@ const Song = () => {
     console.log("Deleting song with id:", id);
     dispatch(deleteSongStart({ id }));
   };
-  
 
   const handleAddNew = () => {
     setEditingSong(null);
     setShowForm(true);
   };
+
+  const visibleSongs = showAll ? songs : songs.slice(0, 6);
 
   if (loading) {
     return (
@@ -314,10 +318,10 @@ const Song = () => {
                 <Edit size={20} />
                 <span>Edit Song</span>
               </Button>
-              <Button variant="success" onClick={() => handleDelete(song.id)} title="Delete Song">
+              <RemoveButton variant="red" onClick={() => handleDelete(song.id)} title="Delete Song">
                 <Delete size={20} />
                 <span>Delete</span>
-              </Button>
+              </RemoveButton>
             </CardFooter>
           </Card>
         ))}
@@ -332,7 +336,6 @@ const Song = () => {
           </ShowMoreButton>
         )}
       </CenteredContainer>
-    
     </Container>
   );
 };
