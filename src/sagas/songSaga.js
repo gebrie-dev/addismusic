@@ -16,63 +16,60 @@ import {
 
 const API_BASE_URL = 'https://songs-8gda.onrender.com'; // Update with your deployed API URL
 
-function* fetchSongs() {
+function* handleApiCall(apiCall, successAction, failureAction, ...args) {
   try {
-    const response = yield call(fetch, `${API_BASE_URL}/songs`);
+    const response = yield call(apiCall, ...args);
     const data = yield response.json();
-    yield put(fetchSongsSuccess(data));
+    yield put(successAction(data));
   } catch (error) {
-    yield put(fetchSongsFailure(error.message));
+    yield put(failureAction(error.message));
   }
+}
+
+function fetchSongsApi() {
+  return fetch(`${API_BASE_URL}/songs`);
+}
+
+function editSongApi(id, payload) {
+  return fetch(`${API_BASE_URL}/songs/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
+function addSongApi(payload) {
+  return fetch(`${API_BASE_URL}/songs`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+}
+
+function deleteSongApi(id) {
+  return fetch(`${API_BASE_URL}/songs/${id}`, {
+    method: 'DELETE',
+  });
+}
+
+function* fetchSongs(action) {
+  yield call(handleApiCall, fetchSongsApi, fetchSongsSuccess, fetchSongsFailure);
 }
 
 function* editSong(action) {
-  try {
-    const response = yield call(fetch, `${API_BASE_URL}/songs/${action.payload.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(action.payload),
-    });
-    const data = yield response.json();
-    yield put(editSongSuccess(data));
-  } catch (error) {
-    yield put(editSongFailure(error.message));
-  }
+  yield call(handleApiCall, editSongApi, editSongSuccess, editSongFailure, action.payload.id, action.payload);
 }
 
 function* addSong(action) {
-  try {
-    const response = yield call(fetch, `${API_BASE_URL}/songs`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(action.payload),
-    });
-    const data = yield response.json();
-    yield put(addSongSuccess(data));
-  } catch (error) {
-    yield put(addSongFailure(error.message));
-  }
+  yield call(handleApiCall, addSongApi, addSongSuccess, addSongFailure, action.payload);
 }
 
 function* deleteSong(action) {
-  try {
-    const response = yield call(fetch, `${API_BASE_URL}/songs/${action.payload}`, {
-      method: 'DELETE',
-    });
-
-    if (response.ok) {
-      yield put(deleteSongSuccess(action.payload));
-    } else {
-      const errorData = yield response.json();
-      yield put(deleteSongFailure(errorData.message || 'Failed to delete the song'));
-    }
-  } catch (error) {
-    yield put(deleteSongFailure(error.message));
-  }
+  yield call(handleApiCall, deleteSongApi, deleteSongSuccess, deleteSongFailure, action.payload);
 }
 
 export function* watchFetchSongs() {
