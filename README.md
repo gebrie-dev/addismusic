@@ -33,10 +33,12 @@ Welcome to **MusicApp**! 🎶 A modern, lightweight, and user-friendly web appli
 ```bash
 git clone https://github.com/gebrie-dev/addismusic
 
+## 📂 **Navigate to the Project Directory**  
+Once cloned, move into the project directory:  
 
-### 📂 Navigate to the Project Directory
-  ```bash
+```bash
 cd ADDISMUSIC
+
 📦 Install Dependencies
 bash
 Copy
