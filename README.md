@@ -2,11 +2,11 @@
 
 Welcome to **MusicApp**! 🎶 A modern, lightweight, and user-friendly web application designed to help you **add, edit, and manage your favorite songs** with ease.  
 
-> **🚀 Live Demo:** [👉 Access MusicApp on Netlify](https://addismusics.netlify.app/)  
+> **🚀 Live Demo:**  
 
 ---
 
-## ✨ **Features at a Glance**
+## ✨ **Features**
 ✔ **Add Songs** – Easily add new songs with title, artist, and other details.  
 ✔ **Edit Songs** – Modify song details on the go.  
 ✔ **Delete Songs** – Remove unwanted songs from your library.  
@@ -50,7 +50,7 @@ npm install
 Open http://localhost:3500 in your browser to view the application.
 
 ### 🌍 Deployed App
-The MusicApp is deployed and hosted on Netlify. Click below to access it:
+The MusicApp is deployed and hosted on Netlify.[👉live app](https://addismusics.netlify.app/) 
 👉 Access MusicApp on Netlify
 
 **🔥 Cool Extras**
