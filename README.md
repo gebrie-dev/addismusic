@@ -32,40 +32,37 @@ Welcome to **MusicApp**! 🎶 A modern, lightweight, and user-friendly web appli
 ### 📥 Clone the Repository  
 ```bash
 git clone https://github.com/gebrie-dev/addismusic
-
+```
 ## 📂 **Navigate to the Project Directory**  
 Once cloned, move into the project directory:  
 
 ```bash
-cd ADDISMUSIC
-
-📦 Install Dependencies
-bash
-Copy
-Edit
+ cd ADDISMUSIC
+```
+### 📦 Install Dependencies
+```bash
 npm install
-###▶ Start the Development Server
+```
+### ▶ Start the Development Server
 ```bash
  npm start
+```
 Open http://localhost:3500 in your browser to view the application.
 
-📚 Learn More
-For more information about React, check out the official React documentation.
-
-🌍 Deployed App
+### 🌍 Deployed App
 The MusicApp is deployed and hosted on Netlify. Click below to access it:
 👉 Access MusicApp on Netlify
 
-🔥 Cool Extras
+**🔥 Cool Extras**
 ✔ Dynamic Song Addition – Instantly update your library.
 ✔ Seamless UI/UX – Smooth transitions and interactions.
 ✔ Mobile-Friendly – Works across all screen sizes.
 ✔ State Persistence – Redux keeps your songs in sync.
 
-💡 Want to Contribute?
+**💡 Want to Contribute?**
 We welcome contributions! Feel free to open an issue or submit a pull request.
 
 📧 Contact: gabiwagnew@email.com
-🌟 Star the Repo: If you find this project helpful, don’t forget to give it a ⭐!
+**🌟 Star the Repo**: If you find this project helpful, don’t forget to give it a ⭐!
 
 Happy Coding! 🎵💻
