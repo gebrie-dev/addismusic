@@ -14,7 +14,7 @@ import {
   deleteSongFailure,
 } from '../store/songSlice';
 
-const API_BASE_URL = 'https://songs-8gda.onrender.com'; // Update with your deployed API URL
+const API_BASE_URL = 'https://songs-8gda.onrender.com/songs'; // Update with your deployed API URL
 
 function* handleApiCall(apiCall, successAction, failureAction, ...args) {
   try {
