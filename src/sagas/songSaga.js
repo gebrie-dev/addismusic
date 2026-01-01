@@ -14,7 +14,7 @@ import {
   deleteSongFailure,
 } from '../store/songSlice';
 
-const API_BASE_URL = 'https://song-data.onrender.com/songs'; 
+const API_BASE_URL = 'https://song-data.onrender.com'; 
 
 function* handleApiCall(apiCall, successAction, failureAction, ...args) {
   try {
