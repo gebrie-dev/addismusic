@@ -1,167 +1,165 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// Facebook icon SVG
 const FacebookIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="24"
-    height="24"
-    fill="currentColor"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
     <path d="M17 2h-2a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2z" />
   </svg>
 );
 
-// Instagram icon SVG
 const InstagramIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="24"
-    height="24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-    <path d="M16 11.37a4 4 0 0 1-4 4M12 6V4" />
+    <path d="M16 11.37a4 4 0 1 1-7.63-2.32A4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
   </svg>
 );
 
 const FooterContainer = styled.footer`
-  background-color: #333;
+  background-color: #1a1a1a;
   color: #fff;
-  padding: 20px;
+  padding: 40px 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  bottom: 0;
-  width: 100%;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
   position: relative;
+  border-top: 2px solid #333;
 
   @media (max-width: 768px) {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
   }
 `;
 
-const FooterContent = styled.div`
+const FooterSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+`;
+
+const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
-
-  @media (max-width: 768px) {
-    justify-content: center;
-    margin-bottom: 20px;
-  }
+  gap: 12px;
+  margin-bottom: 15px;
 `;
 
 const Logo = styled.img`
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
-  cursor: pointer;
-  margin-right: 10px;
+  object-fit: cover;
 `;
 
-const FooterTitle = styled.h1`
+const FooterTitle = styled.h2`
   margin: 0;
-  font-size: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 1px;
 `;
 
-const TechnologiesContainer = styled.div`
-  text-align: center;
-
-  @media (max-width: 768px) {
-    margin-bottom: 20px;
-  }
-`;
-
-const TechnologiesTitle = styled.h3`
-  margin: 0 0 10px;
+const SectionTitle = styled.h3`
+  margin: 0 0 15px;
   font-size: 16px;
+  text-transform: uppercase;
+  color: #999;
 `;
 
-const TechnologiesList = styled.ul`
-  list-style: none;
-  padding: 1rem;
-  margin: 1rem;
-`;
-
-const Technology = styled.li`
-  margin-bottom: 2px;
-  color: #14b8a6;
-`;
-
-const SocialMediaContainer = styled.div``;
-
-const SocialMediaTitle = styled.h3`
-  margin: 0 0 5px;
-  font-size: 14px;
-  margin-bottom: 4px;
-`;
-
-const SocialMediaIcons = styled.div`
+const TechList = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 5px;
 `;
 
-const SocialMediaIcon = styled.a`
-  color: #ef4444;
-  text-decoration: none;
-  font-size: 24px;
-  margin-right: 10px;
+const Technology = styled.span`
+  color: #14b8a6;
+  font-size: 14px;
 `;
 
-const CopyRight = styled.p`
-  margin: 0;
-  font-size: 16px;
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #dc2626;
+const SocialIcons = styled.div`
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
 
   @media (max-width: 768px) {
-    position: static;
-    transform: none;
-    text-align: center;
-    width: 100%;
-    margin-top: 20px;
+    justify-content: center;
   }
+`;
+
+const SocialLink = styled.a`
+  color: #ef4444;
+  transition: transform 0.2s, color 0.2s;
+  &:hover {
+    color: #f87171;
+    transform: translateY(-3px);
+  }
+`;
+
+const CreditContainer = styled.div`
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+`;
+
+const DeveloperLink = styled.a`
+  color: #14b8a6;
+  text-decoration: none;
+  font-weight: bold;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const CopyrightText = styled.p`
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
 `;
 
 const Footer = () => {
   return (
     <FooterContainer>
-      <FooterContent>
-        <Logo src="../favicon.ico" alt="App Logo" />
-        <FooterTitle>Addis Song</FooterTitle>
-      </FooterContent>
-      <TechnologiesContainer>
-        <TechnologiesTitle>Technologies Used</TechnologiesTitle>
-        <TechnologiesList>
-          <Technology>React</Technology>
-          <Technology>Redux</Technology>
-          <Technology>@Emotion</Technology>
-          {/* Add more technologies as needed */}
-        </TechnologiesList>
-      </TechnologiesContainer>
-      <SocialMediaContainer>
-        <SocialMediaTitle>Connect with Us</SocialMediaTitle>
-        <SocialMediaIcons>
-          <SocialMediaIcon href="#" aria-label="Facebook">
-            <FacebookIcon />
-          </SocialMediaIcon>
-          <SocialMediaIcon href="#" aria-label="Instagram">
-            <InstagramIcon />
-          </SocialMediaIcon>
-        </SocialMediaIcons>
-      </SocialMediaContainer>
-      <CopyRight>&copy; 2024 Addis Song. All rights reserved.</CopyRight>
+      <FooterSection>
+        <LogoWrapper>
+          <Logo src="/favicon.ico" alt="Addis Song Logo" />
+          <FooterTitle>Addis Song</FooterTitle>
+        </LogoWrapper>
+        <p style={{ fontSize: '14px', color: '#bbb' }}>
+          Discover and manage your favorite melodies.
+        </p>
+      </FooterSection>
+
+      <FooterSection>
+        <SectionTitle>Stack</SectionTitle>
+        <TechList>
+          <Technology>React & Redux Saga</Technology>
+          <Technology>Styled Components</Technology>
+          <Technology>Emotion & Polished</Technology>
+        </TechList>
+      </FooterSection>
+
+      <FooterSection>
+        <SectionTitle>Connect</SectionTitle>
+        <SocialIcons>
+          <SocialLink href="#" aria-label="Facebook"><FacebookIcon /></SocialLink>
+          <SocialLink href="#" aria-label="Instagram"><InstagramIcon /></SocialLink>
+        </SocialIcons>
+      </FooterSection>
+
+      <CreditContainer>
+        <p>
+          Developed by{' '}
+          <DeveloperLink href="https://gebrie.netlify.app" target="_blank" rel="noopener noreferrer">
+            Gebre
+          </DeveloperLink>
+        </p>
+        <CopyrightText>&copy; {new Date().getFullYear()} Addis Song. All rights reserved.</CopyrightText>
+      </CreditContainer>
     </FooterContainer>
   );
 };
